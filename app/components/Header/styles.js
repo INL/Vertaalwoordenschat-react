@@ -3,12 +3,12 @@ import { StatusBar } from 'react-native';
 
 export default EStyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 0,
-    top: StatusBar.currentHeight,
-    right: 0,
+    marginTop: StatusBar.currentHeight,
     backgroundColor: '$primaryColor',
     height: 50,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   title: {
     fontWeight: '300',

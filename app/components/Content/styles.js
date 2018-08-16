@@ -1,9 +1,15 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default EStyleSheet.create({
-  container: {
+  scrollView: {
+    $outline: 1,
+    width: '100%',
+  },
+  contentContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: '$secondaryColor',
+  },
+  text: {
   },
 });
