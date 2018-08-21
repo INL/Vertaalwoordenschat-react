@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, TextInput, TouchableHighlight, Platform,
+  View, TextInput, TouchableHighlight,
 } from 'react-native';
 import color from 'color';
-import { Ionicons } from '@expo/vector-icons';
 
 import styles from './styles';
+import IonIcon from '../Icon/IonIcon';
 
-const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 const ICON_SIZE = 23;
 const ICON_COLOR = '#333333';
 
@@ -25,7 +24,7 @@ const InputToolbar = ({ dictionaryPress, searchPress, onChangeText }) => {
           style={styles.buttonContainerLeft}
           underlayColor={underlayColor}
         >
-          <Ionicons name={`${ICON_PREFIX}-arrow-dropdown`} size={ICON_SIZE} color={ICON_COLOR} />
+          <IonIcon name="arrow-dropdown" size={ICON_SIZE} color={ICON_COLOR} />
         </TouchableHighlight>
         <View style={styles.separator} />
         <TextInput
@@ -39,7 +38,7 @@ const InputToolbar = ({ dictionaryPress, searchPress, onChangeText }) => {
           style={styles.buttonContainerRight}
           underlayColor={underlayColor}
         >
-          <Ionicons name={`${ICON_PREFIX}-search`} size={ICON_SIZE} color={ICON_COLOR} />
+          <IonIcon name="search" size={ICON_SIZE} color={ICON_COLOR} />
         </TouchableHighlight>
       </View>
     </View>

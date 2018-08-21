@@ -7,21 +7,22 @@ export default EStyleSheet.create({
     backgroundColor: '$primaryColor',
     height: 150,
     width: '100%',
-    alignItems: 'center',
     justifyContent: 'space-evenly',
   },
   imageContainer: {
+    flex: 1,
     flexDirection: 'row',
+    $outline: 1,
   },
   logoIVDNT: {
-    //flex: 2,
+    // flex: 2,
     height: 100,
-    width: 200,
+    width: '50%',
   },
   logoVWS: {
-    //flex: 1,
+    // flex: 1,
     height: 100,
-    width: 100,
+    width: '25%',
   },
   titleContainer: {
 
