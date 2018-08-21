@@ -1,35 +1,36 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { StatusBar } from 'react-native';
 
 export default EStyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
     backgroundColor: '$primaryColor',
     height: 150,
     width: '100%',
     justifyContent: 'space-evenly',
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 15,
+    paddingRight: 15
   },
   imageContainer: {
-    flex: 1,
     flexDirection: 'row',
-    $outline: 1,
+    justifyContent: 'space-between',
+    height: 100,
   },
   logoIVDNT: {
-    // flex: 2,
     height: 100,
-    width: '50%',
+    width: 200,
   },
   logoVWS: {
-    // flex: 1,
     height: 100,
-    width: '25%',
+    width: 100,
   },
   titleContainer: {
-
+    paddingTop: 10,
   },
   title: {
-    fontWeight: '300',
+    fontWeight: '400',
     textAlign: 'center',
     fontSize: 32,
+    color: '$black',
   },
 });

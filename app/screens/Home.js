@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, } from 'react-native';
 
 import Container from '../components/Container/Container';
 import Header from '../components/Header/Header';
@@ -37,7 +37,10 @@ class Home extends Component {
 
     return (
       <Container>
-        <StatusBar translucent={false} barStyle="light-content" />
+        <StatusBar
+          translucent={false} 
+          backgroundColor="#ff8000"  
+          barStyle="light-content" />
         <Header />
         <InputToolbar
           onChangeText={this.handleChangeText}

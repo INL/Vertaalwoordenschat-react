@@ -10,12 +10,20 @@ const Header = () => (
         <Image
           source={require('./images/ivdnt-logo-3regels.png')}
           resizeMode="contain"
+          style={{
+            height: 100,
+            width: 200,
+          }}
         />
       </View>
       <View style={styles.logoVWS}>
         <Image
           source={require('./images/vws-logo.png')}
           resizeMode="contain"
+          style={{
+            height: 100,
+            width: 100,
+          }}
         />
       </View>
     </View>

@@ -16,6 +16,7 @@ EStyleSheet.build({
   $white: '#ffffff',
   $lightGray: '#eeeeee',
   $border: '#E2E2E2',
+  $black: '#000000',
   // $outline: 1,
 });
 
