@@ -44,10 +44,6 @@ export default EStyleSheet.create({
     borderBottomLeftRadius: BORDER_RADIUS,
     width: BUTTON_WIDTH,
   },
-  buttonText: {
-    fontWeight: '600',
-    fontSize: 18,
-  },
   separator: {
     height: INPUT_HEIGHT,
     width: 1,
