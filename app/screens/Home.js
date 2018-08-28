@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
+import { connect } from 'react-redux';
 
 import Container from '../components/Container/Container';
 import Header from '../components/Header/Header';
@@ -8,66 +10,59 @@ import Content from '../components/Content/Content';
 import DictionaryModal from '../components/Modal/DictionaryModal';
 import DictionaryButton from '../components/Button/DictionaryButton';
 
+import { changeCurrentDictionary, setContent, switchModalVisibility } from '../actions/dictionaries';
+
 const DICTIONARY_LIST = ['Niewgrieks', 'Portugees', 'Estisch'];
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: 'content komt hier',
-      isModalVisible: false,
-      currentDictionary: '',
-    };
-  }
-
-  handleChangeText = (dataFromInput) => {
-    this.setState({
-      content: dataFromInput,
-    });
+  static propTypes = {
+    content: PropTypes.string,
+    isModalVisible: PropTypes.bool,
+    currentDictionary: PropTypes.string,
   };
 
-  handleDictionaryPress = () => {
-    this.setState({
-      content: 'dictionary pressed',
-      isModalVisible: !this.state.isModalVisible
-    });
-  }
+  handleChangeText = (dataFromInput) => {
+    const { dispatch } = this.props;
+    dispatch(setContent(dataFromInput));
+  };
 
   handleSearchPress = () => {
-    this.setState({
-      content: 'search pressed',
-    });
+    const { dispatch } = this.props;
+    dispatch(setContent('search pressed'));
   }
 
   setDictionary = (dictionary) => {
-    this.setState({
-      content: `dictionary chosen: ${dictionary}`,
-      currentDictionary: `${dictionary}`,
-      isModalVisible: !this.state.isModalVisible,
-    });
+    // TODO: move toggleModal from this function
+    const { dispatch } = this.props;
+    dispatch(changeCurrentDictionary(dictionary));
+    this.toggleModal();
   }
 
   toggleModal = () => {
-    this.setState({ 
-      isModalVisible: !this.state.isModalVisible 
-    });
+    const { dispatch } = this.props;
+    dispatch(switchModalVisibility());
   }
-    
 
   render() {
-    const { content, currentDictionary } = this.state;
+    const {
+      currentDictionary,
+      isModalVisible,
+      content, 
+    } = this.props;
 
     var buttonGroup = [];
 
-    for(let idx = 0; idx < DICTIONARY_LIST.length; idx++) {
-      buttonGroup.push(
-        <DictionaryButton 
-          dictionary={DICTIONARY_LIST[idx]}
-          key={DICTIONARY_LIST[idx]}
-          setDictionary={this.setDictionary}
-          active={DICTIONARY_LIST[idx] === currentDictionary ? true : false }
-        />
-      )
+    if (isModalVisible) {
+      for(let idx = 0; idx < DICTIONARY_LIST.length; idx++) {
+        buttonGroup.push(
+          <DictionaryButton 
+            dictionary={DICTIONARY_LIST[idx]}
+            key={DICTIONARY_LIST[idx]}
+            setDictionary={this.setDictionary}
+            active={DICTIONARY_LIST[idx] === currentDictionary ? true : false }
+          />
+        )
+      }
     }
 
     return (
@@ -79,11 +74,11 @@ class Home extends Component {
         <Header />
         <InputToolbar
           onChangeText={this.handleChangeText}
-          dictionaryPress={this.handleDictionaryPress}
+          dictionaryPress={this.toggleModal}
           searchPress={this.handleSearchPress}
         />
         <DictionaryModal
-          isVisible={this.state.isModalVisible}
+          isVisible={isModalVisible}
           closeModal={this.toggleModal}
         >
           { buttonGroup }
@@ -94,4 +89,20 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  const {
+    currentDictionary,
+    isModalVisible,
+    content
+  } = state.dictionaries;
+
+  console.log('state is: ', state);
+
+  return {
+    currentDictionary,
+    isModalVisible,
+    content,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

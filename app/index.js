@@ -1,7 +1,9 @@
 import React from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { Provider } from 'react-redux';
 
 import Home from './screens/Home';
+import store from './config/store';
 
 EStyleSheet.build({
   $primaryColor: '#ff8000',
@@ -20,4 +22,8 @@ EStyleSheet.build({
   // $outline: 1,
 });
 
-export default () => <Home />;
+export default () => (
+  <Provider store={store}>
+    <Home />
+  </Provider>
+);
