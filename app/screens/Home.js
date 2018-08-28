@@ -10,8 +10,15 @@ import Content from '../components/Content/Content';
 import DictionaryModal from '../components/Modal/DictionaryModal';
 import DictionaryButton from '../components/Button/DictionaryButton';
 
-import { changeCurrentDictionary, setContent, switchModalVisibility } from '../actions/dictionaries';
+import {
+  changeCurrentDictionary,
+  setContent,
+  switchModalVisibility,
+  setQuery,
+  searchVwsApi,
+} from '../actions/dictionaries';
 
+// TODO: put is list in a separate fil in config?
 const DICTIONARY_LIST = ['Niewgrieks', 'Portugees', 'Estisch'];
 
 class Home extends Component {
@@ -23,16 +30,15 @@ class Home extends Component {
 
   handleChangeText = (dataFromInput) => {
     const { dispatch } = this.props;
-    dispatch(setContent(dataFromInput));
+    dispatch(setQuery(dataFromInput));
   };
 
   handleSearchPress = () => {
     const { dispatch } = this.props;
-    dispatch(setContent('search pressed'));
+    dispatch(searchVwsApi());
   }
 
   setDictionary = (dictionary) => {
-    // TODO: move toggleModal from this function
     const { dispatch } = this.props;
     dispatch(changeCurrentDictionary(dictionary));
     this.toggleModal();
@@ -95,8 +101,6 @@ const mapStateToProps = (state) => {
     isModalVisible,
     content
   } = state.dictionaries;
-
-  console.log('state is: ', state);
 
   return {
     currentDictionary,

@@ -2,12 +2,14 @@ import {
   CHANGE_CURRENT_DICTIONARY,
   SWITCH_MODAL_VISIBILITY,
   SET_CONTENT,
+  SET_QUERY,
 } from '../actions/dictionaries';
 
 const initialState = {
   content: 'content komt hier',
   isModalVisible: false,
   currentDictionary: '',
+  query: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         content: action.content,
+      };
+    case SET_QUERY:
+      return {
+        ...state,
+        query: action.query,
       };
     default:
       return state;
