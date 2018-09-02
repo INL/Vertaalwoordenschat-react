@@ -10,5 +10,6 @@ export default EStyleSheet.create({
     backgroundColor: '$secondaryColor',
   },
   text: {
+    textAlign: 'center',
   },
 });

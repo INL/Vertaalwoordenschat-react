@@ -9,23 +9,33 @@ import InputToolbar from '../components/InputToolbar/InputToolbar';
 import Content from '../components/Content/Content';
 import DictionaryModal from '../components/Modal/DictionaryModal';
 import DictionaryButton from '../components/Button/DictionaryButton';
+import SearchResultButton from '../components/Button/SearchResultButton';
+import Message from '../components/Text/Message';
 
 import {
   changeCurrentDictionary,
-  setContent,
   switchModalVisibility,
   setQuery,
   searchVwsApi,
+  getTranslation,
+  IS_FETCHING,
+  SHOW_SEARCH_RESULT,
+  SHOW_TRANSLATION,
+  SHOW_NO_RESULT_FOUND,
+  SHOW_ERROR_MESSAGE,
 } from '../actions/dictionaries';
 
 // TODO: put is list in a separate fil in config?
-const DICTIONARY_LIST = ['Niewgrieks', 'Portugees', 'Estisch'];
+const DICTIONARY_LIST = ['Nieuwgrieks', 'Portugees'];
 
 class Home extends Component {
   static propTypes = {
-    content: PropTypes.string,
     isModalVisible: PropTypes.bool,
     currentDictionary: PropTypes.string,
+    query: PropTypes.string,
+    searchResult: PropTypes.array,
+    translationResult: PropTypes.array,
+    contentController: PropTypes.string,
   };
 
   handleChangeText = (dataFromInput) => {
@@ -34,8 +44,18 @@ class Home extends Component {
   };
 
   handleSearchPress = () => {
+    const { dispatch, currentDictionary } = this.props;
+
+    if (currentDictionary === '') {
+      this.toggleModal();
+    } else {
+      dispatch(searchVwsApi());
+    }   
+  }
+
+  handleResultButtonPress = (term) => {
     const { dispatch } = this.props;
-    dispatch(searchVwsApi());
+    dispatch(getTranslation(term));
   }
 
   setDictionary = (dictionary) => {
@@ -52,11 +72,14 @@ class Home extends Component {
   render() {
     const {
       currentDictionary,
+      query,
       isModalVisible,
-      content, 
+      searchResult,
+      translationResult,
+      contentController,
     } = this.props;
 
-    var buttonGroup = [];
+    let buttonGroup = [];
 
     if (isModalVisible) {
       for(let idx = 0; idx < DICTIONARY_LIST.length; idx++) {
@@ -69,6 +92,39 @@ class Home extends Component {
           />
         )
       }
+    }
+
+    // render here resultContainer, messageContainer or translationContainer
+    let content = [];
+
+    console.log('contentController', contentController);
+    switch (contentController) {
+      case IS_FETCHING:
+        content = <Message message={'...'} />;
+        break;
+      case SHOW_SEARCH_RESULT:
+      // use a for loop to create array of SearchResultContent components
+      // show them as a list?
+        content = [];
+        searchResult.forEach((lemma, index) => {
+          content.push(
+            <SearchResultButton
+              lemma={lemma}
+              getTranslation={this.handleResultButtonPress}
+              key={index.toString()}
+            />
+          )
+        });
+        break;
+      case SHOW_TRANSLATION:
+        content = <Message message={'translation in development'} />;
+        break;
+      case SHOW_NO_RESULT_FOUND:
+        content = <Messaget message={`Geen resultaat gevonden voor ${query} in het woordenboek`}/>;
+        break;
+      case SHOW_ERROR_MESSAGE:
+        content = <Message message={'Er is iets fout gegaan'} />;
+        break;
     }
 
     return (
@@ -89,7 +145,7 @@ class Home extends Component {
         >
           { buttonGroup }
         </DictionaryModal>
-        <Content content={content} />
+        <Content children={content} />
       </Container>
     );
   }
@@ -98,14 +154,20 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   const {
     currentDictionary,
+    query,
     isModalVisible,
-    content
+    searchResult,
+    translationResult,
+    contentController,
   } = state.dictionaries;
 
   return {
     currentDictionary,
+    query,
     isModalVisible,
-    content,
+    searchResult,
+    translationResult,
+    contentController,
   };
 };
 
