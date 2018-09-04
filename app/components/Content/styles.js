@@ -9,7 +9,4 @@ export default EStyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '$secondaryColor',
   },
-  text: {
-    textAlign: 'center',
-  },
 });

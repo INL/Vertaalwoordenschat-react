@@ -21,7 +21,7 @@ const initialState = {
   query: '',
   contentController: '',
   searchResult: [],
-  translationResult: [],
+  translationResult: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -56,21 +56,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         searchResult: action.result,
-        translationResult: [],
+        translationResult: '',
         contentController: SHOW_SEARCH_RESULT,
       };
     case NO_SEARCH_RESULT:
       return {
         ...state,
         searchResult: [],
-        translationResult: [],
+        translationResult: '',
         contentController: SHOW_NO_RESULT_FOUND,
       };
     case SEARCH_ERROR:
       return {
         ...state,
         searchResult: [],
-        translationResult: [],
+        translationResult: '',
         contentController: SHOW_ERROR_MESSAGE,
       }
     case TRANSLATION_RESULT:

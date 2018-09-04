@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 export default SearchResultButton = ({ lemma, getTranslation }) => (
-  <TouchableOpacity onPress={() => getTranslation(lemma.lemma)} style={styles.touchable}>
+  <TouchableOpacity onPress={() => getTranslation(lemma.lemma)} style={styles.touchableResult}>
     <View style={styles.result}>
       <Text style={styles.lemma}>
           <Text style={styles.ball} />

@@ -26,4 +26,29 @@ export default EStyleSheet.create({
     padding: 8,
     width: '100%',
   },
+  touchableResult: {
+    width: '80%',
+    marginLeft: '10%',
+  },
+  result: {
+    marginTop: 15,
+    marginBottom: 15,
+    paddingLeft: 40,
+    paddingBottom: 5,
+    backgroundColor: '$secondaryAccent',
+  },
+  lemma: {
+
+  },
+  ball: {
+
+  },
+  word: {
+    fontSize: 50,
+    fontWeight: '400',
+    color: '$black',
+  },
+  flag: {
+
+  },
 });

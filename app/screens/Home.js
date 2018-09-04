@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import Container from '../components/Container/Container';
+import TranslationContainer from '../components/Container/TranslationContainer';
 import Header from '../components/Header/Header';
 import InputToolbar from '../components/InputToolbar/InputToolbar';
 import Content from '../components/Content/Content';
@@ -34,7 +35,7 @@ class Home extends Component {
     currentDictionary: PropTypes.string,
     query: PropTypes.string,
     searchResult: PropTypes.array,
-    translationResult: PropTypes.array,
+    translationResult: PropTypes.string,
     contentController: PropTypes.string,
   };
 
@@ -97,14 +98,11 @@ class Home extends Component {
     // render here resultContainer, messageContainer or translationContainer
     let content = [];
 
-    console.log('contentController', contentController);
     switch (contentController) {
       case IS_FETCHING:
         content = <Message message={'...'} />;
         break;
       case SHOW_SEARCH_RESULT:
-      // use a for loop to create array of SearchResultContent components
-      // show them as a list?
         content = [];
         searchResult.forEach((lemma, index) => {
           content.push(
@@ -117,10 +115,12 @@ class Home extends Component {
         });
         break;
       case SHOW_TRANSLATION:
-        content = <Message message={'translation in development'} />;
+        // TODO: show html in a WebView component
+        // content = <Message message={'translation in development'} />;
+        content = <TranslationContainer translationHtml={translationResult} />;
         break;
       case SHOW_NO_RESULT_FOUND:
-        content = <Messaget message={`Geen resultaat gevonden voor ${query} in het woordenboek`}/>;
+        content = <Message message={`Geen resultaat gevonden voor ${query} in het woordenboek`}/>;
         break;
       case SHOW_ERROR_MESSAGE:
         content = <Message message={'Er is iets fout gegaan'} />;

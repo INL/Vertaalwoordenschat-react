@@ -6,4 +6,10 @@ export default EStyleSheet.create({
     alignItems: 'center',
     backgroundColor: '$secondaryColor',
   },
+  webview: {
+    width: 350,
+    //height: 400,
+    flex: 1,
+    backgroundColor: '$secondaryColor',
+  }
 });
