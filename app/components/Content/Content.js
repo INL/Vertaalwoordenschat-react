@@ -4,17 +4,20 @@ import { Text, ScrollView } from 'react-native';
 
 import styles from './styles';
 
-const Content = ({ content }) => (
-  <ScrollView
-    style={styles.scrollView}
-    contentContainerStyle={styles.contentContainer}
-  >
-    <Text style={styles.text}>{content}</Text>
-  </ScrollView>
-);
+const Content = ({ children }) => {
+
+  return (
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+    >
+      {children}
+    </ScrollView>
+  );
+}
 
 Content.propTypes = {
-  content: PropTypes.string,
+  children: PropTypes.any,
 };
 
 export default Content;

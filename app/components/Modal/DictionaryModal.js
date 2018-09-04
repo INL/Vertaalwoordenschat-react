@@ -14,6 +14,7 @@ export default DictionaryModal = ({ isVisible, closeModal, children }) => {
       onSwipe={closeModal}
     >
       <View style={styles.modalContent}>
+        <Text style={styles.text}>Selecteer een woordenboek:</Text>
         { children }
       </View>
     </Modal>
